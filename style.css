@@ -27,7 +27,6 @@ body {
 }
 
 #header {
-  
   margin: 0px;
   padding: 10px;
   display: flex;
@@ -68,22 +67,34 @@ h1 {
   padding: 15px 30px;
 }
 
-#add-book {
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  font-size: 18px;
-  background-color: rgb(252, 244, 207);
-  border: 1px solid #220c10;
-  border-radius: 5px;
-  padding: 6px;
+#sort-by, #sort-by-label {
+  display: inline;
+  padding: 0px;
 }
 
-#add-book:hover {
+button {
+  background-color: rgb(252, 244, 207);
+  border: 1px solid black;
+  border-radius: 3px;
+  color: #220c10;
+}
+
+button:hover {
   filter: brightness(90%);
 }
 
-#add-book:active {
+button:active {
   filter: brightness(80%);
 }
+
+
+#add-book {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 18px;
+  padding: 6px;
+}
+
+
 
 #books-container{
   padding: 30px;
@@ -163,7 +174,8 @@ li {
 }
 
 .checkbox {
-  font-size: 20px;
+  width: 16px;
+  height: 16px;
 }
 
 .read-caption {
@@ -179,16 +191,12 @@ li {
 }
 
 .delete-btn {
-  background-color: rgb(252, 244, 207);
   height: 19px;
   width: 19px;
   margin-right: 3px;
-  border-radius: 3px;
-  color: #220c10;
   font-size: 19px;
-  border: 1px solid black;
   padding: 0px;
-  line-height: 16px;
+  line-height: 18px;
   text-align: center;
 }
 
@@ -196,7 +204,7 @@ li {
 
 
 /* this is all the form css */
-#pop-up-form {
+#pop-up-form, #pop-up-edit-form {
   position: absolute;
   top: 0;
   left: 0;
@@ -209,15 +217,15 @@ li {
   justify-content: center;
 }
 
-#form-container {
+#form-container, #edit-form-container {
   border: 2px solid #220c10;
   border-radius: 5px;
-  background-color: #506c64;
+  background-color: rgba(60, 116, 60, 0.7);
   padding: 6px;
   color: #220c10;
 }
 
-#form-container h1 {
+#form-container h1, #edit-form-container h1 {
   padding: 0px;
   text-align: center;
 }
@@ -232,7 +240,7 @@ label, input {
   padding: 2px;;
 }
 
-#form-container p {
+#form-container p, #edit-form-container p {
   margin: 0px;
 }
 
@@ -244,7 +252,7 @@ input[type=text], input[type=number] {
   display: inline;
 }
 
-#form-buttons {
+#form-buttons, #edit-form-buttons {
   display: flex;
   padding: 8px;
   margin: 0px;
