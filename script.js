@@ -1,5 +1,7 @@
 let myLibrary = [];
 let bookCounter = 0;
+let editIndex = null;
+let filterLib = null;
 
 function Book(title, author, pages, read, numAdded) {
   this.title = title;
@@ -29,6 +31,8 @@ function listBooks() {
   });
 }
 
+
+
 function openForm() {
   document.getElementById('pop-up-form').style.display = "flex";
 }
@@ -39,7 +43,17 @@ function closeForm() {
   document.getElementById('form-container').reset();
 }
 
-function openEditForm() {
+function openEditForm(index) {
+  editIndex = index;
+  document.getElementById('edit-title').value = myLibrary[index].title;
+  document.getElementById('edit-author').value = myLibrary[index].author;
+  document.getElementById('edit-pages').value = myLibrary[index].pages;
+  if(myLibrary[index].read) {
+    document.getElementById('edit-read-yes').checked = true;
+  } else {
+    document.getElementById('edit-read-no').checked = true;
+  }
+
   document.getElementById('pop-up-edit-form').style.display = "flex";
 }
 
@@ -48,9 +62,6 @@ function closeEditForm() {
   //reset form data
   document.getElementById('edit-form-container').reset();
 }
-
-
-
 
 
 function addBook(form) {
@@ -121,18 +132,23 @@ function addBookToPage(bookTitle, bookAuthor, bookPages, bookRead, index) {
 
   //edit button at bottom right
   let editButton = document.createElement('button');
-  editButton.textContent = 'Edit';
+  let editIcon = document.createElement('i');
+  editIcon.classList.add('fas', 'fa-pen');
+  editButton.appendChild(editIcon);
   editButton.classList.add('delete-btn');
-  editButton.setAttribute('onclick', `editBook(${index})`);
+  editButton.setAttribute('onclick', `openEditForm(${index})`);
 
   //del button at bottom right
   let deleteButton = document.createElement('button');
-  deleteButton.textContent = '×';
+  let deleteIcon = document.createElement('i');
+  deleteIcon.classList.add('fas', 'fa-trash-alt');
+  deleteButton.appendChild(deleteIcon);
   deleteButton.classList.add('delete-btn');
   deleteButton.setAttribute('onclick', `deleteBook(${index})`);
   
- 
-  
+  let bottomRightButtons = document.createElement('div');
+  bottomRightButtons.appendChild(editButton);
+  bottomRightButtons.appendChild(deleteButton);
 
   let readSwitch = document.createElement('div');
   readSwitch.appendChild(readCaption);
@@ -142,8 +158,7 @@ function addBookToPage(bookTitle, bookAuthor, bookPages, bookRead, index) {
 
   
   titleBar.appendChild(readSwitch)
-  titleBar.appendChild(editButton);
-  titleBar.appendChild(deleteButton);
+  titleBar.appendChild(bottomRightButtons);
   bookCard.appendChild(titleBar);
 
 //-----------------------------------
@@ -193,46 +208,59 @@ function deleteBook(index) {
   getBookStats();
 }
 
-function edit(index) {
-  //to do:  create edit form that will show current books info.  show form.  
-}
 
+  
 function editBook(form) {
-  openEditForm();
+  let read = form.read.value;
+  if (read === 'true') {
+    read = true;
+  } else if (read === 'false') {
+    read = false;
+  }
+  let index = editIndex;
+  editIndex = null;
+  myLibrary[index].title = form.title.value;
+  myLibrary[index].author = form.author.value;
+  myLibrary[index].pages = form.pages.value;
+  myLibrary[index].read = read;
+  closeEditForm();
+  getBookStats();
+  listBooks();
 }
 
 function sortBy(sortMethod) {
+  arr = filterLib || myLibrary;
   switch(sortMethod) {
     case 'title-up':
-      myLibrary.sort((a, b) => {
+      arr.sort((a, b) => {
         if (a.title.toLowerCase() > b.title.toLowerCase()) return 1;
         if (a.title.toLowerCase() < b.title.toLowerCase()) return -1;
         return 0;
       })
     break;
     case 'title-down':
-      myLibrary.sort((a, b) => {
+      arr.sort((a, b) => {
         if (a.title.toLowerCase() > b.title.toLowerCase()) return -1;
         if (a.title.toLowerCase() < b.title.toLowerCase()) return 1;
         return 0;
       })
     break;
     case 'date-added-up':
-      myLibrary.sort((a, b) => {
+      arr.sort((a, b) => {
         if (a.numAdded > b.numAdded) return 1;
         if (a.numAdded < b.numAdded) return -1;
         return 0;
       })
     break;
     case 'date-added-down':
-      myLibrary.sort((a, b) => {
+      arr.sort((a, b) => {
         if (a.numAdded > b.numAdded) return -1;
         if (a.numAdded < b.numAdded) return 1;
         return 0;
       })
     break;
     case 'author-up':
-      myLibrary.sort((a, b) => {
+      arr.sort((a, b) => {
         aAuthor = a.author.toLowerCase().split(' ');
         aLastName = aAuthor[aAuthor.length-1];
         bAuthor = b.author.toLowerCase().split(' ');
@@ -249,7 +277,7 @@ function sortBy(sortMethod) {
       })
     break;
     case 'author-down':
-      myLibrary.sort((a, b) => {
+      arr.sort((a, b) => {
         aAuthor = a.author.toLowerCase().split(' ');
         aLastName = aAuthor[aAuthor.length-1];
         bAuthor = b.author.toLowerCase().split(' ');
@@ -266,28 +294,68 @@ function sortBy(sortMethod) {
       })
     break;
     case 'pages-up':
-      myLibrary.sort((a, b) => {
+      arr.sort((a, b) => {
         if (a.pages > b.pages) return 1;
         if (a.pages < b.pages) return -1;
         return 0;
       })
     break;
     case 'pages-down':
-      myLibrary.sort((a, b) => {
+      arr.sort((a, b) => {
         if (a.pages > b.pages) return -1;
         if (a.pages < b.pages) return 1;
         return 0;
       })
     break;
   }
-  listBooks();
+  
+  listFilteredBooks(arr);
+  
+  
 }
 
-addBookToLibrary('First Book', 'Authur Hemingway', 33, false);
-addBookToLibrary('Second Book', 'J.R.R. Tolkein', 13, false);
-addBookToLibrary('Third Book', 'Third Author', 43, false);
-addBookToLibrary('Fourth Book', 'Hernest Hemingway', 53, false);
-addBookToLibrary('Fifth Book', 'aames K. Hemingway', 32, false);
+function filterBy(filterMethod) {
+  
+  switch (filterMethod) {
+    case 'show-all':
+      listBooks();
+      filterLib = null;
+      return;
+    case 'show-read':
+      filterLib = myLibrary.filter((book) => book.read);
+      break;
+    case 'show-unread':
+      filterLib = myLibrary.filter((book) => !book.read);
+      break;
+  }
+  listFilteredBooks(filterLib);
+}
+
+function listFilteredBooks(arr) {
+  //first remove all child nodes, before adding them all
+  const bookList = document.getElementById('books-container');
+  while (bookList.firstChild) {
+    bookList.removeChild(bookList.firstChild)
+  }
+
+  arr.forEach((book, index) => {
+    addBookToPage(book.title, book.author, book.pages, book.read, index)
+  });
+}
+
+function resetFilterSort(){
+  document.getElementById('select-filter').options[0].selected = true;
+  filterBy('show-all');
+  document.getElementById('select-sort-by').options[0].selected = true;
+  sortBy('date-added-up');
+}
+
+
+addBookToLibrary('Cat\'s Cradle', 'Kurt Vonnegut', 304, true);
+addBookToLibrary('To Kill a Mockingbird', 'Harper Lee', 281, false);
+addBookToLibrary('Slaughterhouse-Five', 'Kurt Vonnegut', 192, true);
+addBookToLibrary('1984', 'George Orwell', 328, true);
+addBookToLibrary('The Old Man and the Sea', 'Ernest Hemingway', 127, false);
 
 listBooks();
 getBookStats();

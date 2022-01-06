@@ -7,6 +7,7 @@
   <title>My Library</title>
   <script src="script.js" defer></script>
   <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/56f16035fa.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <div id="container-for-footer">
@@ -21,21 +22,35 @@
       </div>
       <div id="control-bar">
         <button id="add-book" onclick="openForm()">Add Book</button>
+        <div id='filter-sort'>
+          <a href='#' onclick='resetFilterSort()'>Reset</a>
+          <div id="filter">
+            <form id="filter-form">
+              <label for="filter" id='filter-label'>Filter:</label>
+              <select id="select-filter" onchange="filterBy(this.value)">
+                <option value='show-all'>Show All</option>
+                <option value='show-read'>Show Read</option>
+                <option value='show-unread'>Show Unread</option>
+              </select>
+            </form>
+          </div>
 
-        <div id="sort-by">
-          <form id="sort-form">
-            <label for="sort-by" id='sort-by-label'>Sort-By</label>
-            <select id="sort-by" onchange="sortBy(this.value)">
-              <option value='date-added-up'>Date Added up</option>
-              <option value='date-added-down'>Date Added down</option>
-              <option value='title-up'>Title up</option>
-              <option value='title-down'>Title down</option>
-              <option value='author-up'>Author up</option>
-              <option value='author-down'>Author down</option>
-              <option value='pages-up'>Pages up</option>
-              <option value='pages-down'>Pages down</option>
-            </select>
-          </form>
+          <div id="sort-by">
+            <form id="sort-form">
+              <label for="sort-by" id='sort-by-label'>Sort-By:</label>
+              <select id="select-sort-by" onchange="sortBy(this.value)">
+                <option value='date-added-up'>Date Added &#8593;</i></option>
+                <option value='date-added-down'>Date Added &#8595;</option>
+                <option value='title-up'>Title &#8593;</option>
+                <option value='title-down'>Title &#8595;</option>
+                <option value='author-up'>Author &#8593;</option>
+                <option value='author-down'>Author &#8595;</option>
+                <option value='pages-up'>Pages &#8593;</option>
+                <option value='pages-down'>Pages &#8595;</option>
+              </select>
+            </form>
+          </div>
+
         </div>
       </div>
       <div id="books-container">
@@ -74,26 +89,27 @@
   <!-- This is the edit book pop-up form-->
   <div id="pop-up-edit-form">
     <form id="edit-form-container">
+      <div id='index' name='index' value=null></div>
       <h1>Edit Book</h1>
       <p class='form-row'>
         <label for="title">Title:</label>
-        <input type="text" placeholder="Title" name="title" required>
+        <input type="text" placeholder="Title" name="title" id='edit-title' required>
       </p>
       <p class='form-row'>
         <label for="author">Author:</label>
-        <input type="text" placeholder="Author" name="author" required>
+        <input type="text" placeholder="Author" name="author" id='edit-author' required>
       </p>
       <p class='form-row'>
         <label for="pages">Pages:</label>
-        <input type="number" placeholder="Pages" name="pages" required>
+        <input type="number" placeholder="Pages" name="pages" id='edit-pages' required>
       </p>
       <p class='radio-section'>
         <label for="read_radio">Have you read this yet?</label>
-        <input type="radio" name="read" value=true>Yes</input>
-        <input type="radio" name="read" value=false checked >No</input>
+        <input id='edit-read-yes' type="radio" name="read" value=true>Yes</input>
+        <input id='edit-read-no' type="radio" name="read" value=false>No</input>
       </p>
       <div id="edit-form-buttons">
-        <button type="button" onclick="addBook(this.form)" id="pop-up-edit-form-button">Add Book</button>
+        <button type="button" onclick="editBook(this.form)" id="pop-up-edit-form-button">Edit Book</button>
         <button type="button" onclick="closeEditForm()">Cancel</button>
       </div>
     </form>

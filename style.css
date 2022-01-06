@@ -64,12 +64,22 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px 30px;
+  padding: 6px 30px;
 }
 
-#sort-by, #sort-by-label {
+#filter-sort {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#sort-by, #sort-by-label, #filter, #filter-label {
   display: inline;
   padding: 0px;
+}
+#filter {
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 button {
@@ -94,6 +104,10 @@ button:active {
   padding: 6px;
 }
 
+select, option {
+  font-size: 15px;
+  font-family: sans-serif;
+}
 
 
 #books-container{
@@ -124,24 +138,35 @@ ul {
 }
 
 li {
-  font-weight: bold;
+  font-family: Georgia, 'Times New Roman', Times, serif;
   list-style-type: none;
   padding: 4px;
+  font-size: 16px;
 }
 
 #title-li:before {
-  font-weight: 400;
-  content: 'Title: '
+  content: 'Title: ';
 }
 
 #author-li:before {
-  font-weight: 400;
-  content: 'Author: '
+  content: 'Author: ';
 }
 
 #pages-li:before {
-  font-weight: 400;
-  content: 'Pages: '
+  content: 'Pages: ';
+}
+li:before {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 16px;
+  font-style: italic;
+}
+
+.read-caption {
+  margin: 0px;
+  padding: 0px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 16px;
+  font-style: italic;
 }
 
 #footer {
@@ -152,11 +177,11 @@ li {
   justify-content: center;
   align-items: center;
   margin: auto;
-  font-family: sans-serif;
-  font-size: 15px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 16px;
 }
 
-#footer a {
+a {
   color: #FCF4CF;
 }
 
@@ -178,10 +203,8 @@ li {
   height: 16px;
 }
 
-.read-caption {
-  margin: 0px;
-  padding: 0px;
-}
+
+
 .read-book {
   background-color: rgba(60, 116, 60, 0.8);
 }
@@ -194,7 +217,7 @@ li {
   height: 19px;
   width: 19px;
   margin-right: 3px;
-  font-size: 19px;
+  font-size: 12px;
   padding: 0px;
   line-height: 18px;
   text-align: center;
