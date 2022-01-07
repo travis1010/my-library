@@ -50,12 +50,12 @@ function openEditForm(index) {
   document.getElementById('edit-title').value = myLibrary[index].title;
   document.getElementById('edit-author').value = myLibrary[index].author;
   document.getElementById('edit-pages').value = myLibrary[index].pages;
+  
   if(myLibrary[index].read) {
     document.getElementById('edit-read-yes').checked = true;
   } else {
     document.getElementById('edit-read-no').checked = true;
   }
-
   document.getElementById('pop-up-edit-form').style.display = "flex";
 }
 
@@ -267,7 +267,6 @@ function sortBy(sortMethod) {
         aLastName = aAuthor[aAuthor.length-1];
         bAuthor = b.author.toLowerCase().split(' ');
         bLastName = bAuthor[bAuthor.length-1];
-        console.log(aLastName)
 
         if (aLastName > bLastName) return 1;
         else if (aLastName < bLastName) return -1;
@@ -284,7 +283,7 @@ function sortBy(sortMethod) {
         aLastName = aAuthor[aAuthor.length-1];
         bAuthor = b.author.toLowerCase().split(' ');
         bLastName = bAuthor[bAuthor.length-1];
-        console.log(aLastName)
+        
 
         if (aLastName > bLastName) return -1;
         else if (aLastName < bLastName) return 1;
