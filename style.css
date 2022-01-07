@@ -73,14 +73,11 @@ h1 {
   align-items: center;
 }
 
-#sort-by, #sort-by-label, #filter, #filter-label {
+#sort-by, #sort-by-label{
   display: inline;
   padding: 0px;
 }
-#filter {
-  margin-right: 5px;
-  margin-left: 5px;
-}
+
 
 button {
   background-color: rgb(252, 244, 207);

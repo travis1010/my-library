@@ -22,19 +22,8 @@
       </div>
       <div id="control-bar">
         <button id="add-book" onclick="openForm()">Add Book</button>
-        <div id='filter-sort'>
-          <a href='#' onclick='resetFilterSort()'>Reset</a>
-          <div id="filter">
-            <form id="filter-form">
-              <label for="filter" id='filter-label'>Filter:</label>
-              <select id="select-filter" onchange="filterBy(this.value)">
-                <option value='show-all'>Show All</option>
-                <option value='show-read'>Show Read</option>
-                <option value='show-unread'>Show Unread</option>
-              </select>
-            </form>
-          </div>
-
+        
+          
           <div id="sort-by">
             <form id="sort-form">
               <label for="sort-by" id='sort-by-label'>Sort-By:</label>
@@ -51,7 +40,7 @@
             </form>
           </div>
 
-        </div>
+        
       </div>
       <div id="books-container">
       </div> 

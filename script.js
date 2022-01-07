@@ -3,20 +3,21 @@ let bookCounter = 0;
 let editIndex = null;
 let filterLib = null;
 
-function Book(title, author, pages, read, numAdded) {
+function Book(title, author, pages, read, numAdded, index) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.read = read;
   this.numAdded = numAdded;
+  this.index = index;
   this.info = function() {
     return `${this.title} by ${this.author}, ${pages} pages, ${this.read ? 'already read' : 'not read yet'}`;
   };
 }
 
-function addBookToLibrary(title, author, pages, read) {
+function addBookToLibrary(title, author, pages, read, currentIndex) {
   bookCounter++;
-  myLibrary.push(new Book(title, author, pages, read, bookCounter));
+  myLibrary.push(new Book(title, author, pages, read, bookCounter, currentIndex));
 }
 
 function listBooks() {
@@ -27,6 +28,7 @@ function listBooks() {
   }
 
   myLibrary.forEach((book, index) => {
+    book.index = index;
     addBookToPage(book.title, book.author, book.pages, book.read, index)
   });
 }
@@ -75,7 +77,7 @@ function addBook(form) {
   } else if (read === 'false') {
     read = false;
   }
-  addBookToLibrary(title, author, pages, read);
+  addBookToLibrary(title, author, pages, read, currentIndex);
   closeForm();
   addBookToPage(title, author, pages, read, currentIndex);
   getBookStats();
@@ -229,38 +231,38 @@ function editBook(form) {
 }
 
 function sortBy(sortMethod) {
-  arr = filterLib || myLibrary;
+  
   switch(sortMethod) {
     case 'title-up':
-      arr.sort((a, b) => {
+      myLibrary.sort((a, b) => {
         if (a.title.toLowerCase() > b.title.toLowerCase()) return 1;
         if (a.title.toLowerCase() < b.title.toLowerCase()) return -1;
         return 0;
       })
     break;
     case 'title-down':
-      arr.sort((a, b) => {
+      myLibrary.sort((a, b) => {
         if (a.title.toLowerCase() > b.title.toLowerCase()) return -1;
         if (a.title.toLowerCase() < b.title.toLowerCase()) return 1;
         return 0;
       })
     break;
     case 'date-added-up':
-      arr.sort((a, b) => {
+      myLibrary.sort((a, b) => {
         if (a.numAdded > b.numAdded) return 1;
         if (a.numAdded < b.numAdded) return -1;
         return 0;
       })
     break;
     case 'date-added-down':
-      arr.sort((a, b) => {
+      myLibrary.sort((a, b) => {
         if (a.numAdded > b.numAdded) return -1;
         if (a.numAdded < b.numAdded) return 1;
         return 0;
       })
     break;
     case 'author-up':
-      arr.sort((a, b) => {
+      myLibrary.sort((a, b) => {
         aAuthor = a.author.toLowerCase().split(' ');
         aLastName = aAuthor[aAuthor.length-1];
         bAuthor = b.author.toLowerCase().split(' ');
@@ -277,7 +279,7 @@ function sortBy(sortMethod) {
       })
     break;
     case 'author-down':
-      arr.sort((a, b) => {
+      myLibrary.sort((a, b) => {
         aAuthor = a.author.toLowerCase().split(' ');
         aLastName = aAuthor[aAuthor.length-1];
         bAuthor = b.author.toLowerCase().split(' ');
@@ -294,61 +296,27 @@ function sortBy(sortMethod) {
       })
     break;
     case 'pages-up':
-      arr.sort((a, b) => {
+      myLibrary.sort((a, b) => {
         if (a.pages > b.pages) return 1;
         if (a.pages < b.pages) return -1;
         return 0;
       })
     break;
     case 'pages-down':
-      arr.sort((a, b) => {
+      myLibrary.sort((a, b) => {
         if (a.pages > b.pages) return -1;
         if (a.pages < b.pages) return 1;
         return 0;
       })
     break;
   }
-  
-  listFilteredBooks(arr);
+ 
+  listBooks();
   
   
 }
 
-function filterBy(filterMethod) {
-  
-  switch (filterMethod) {
-    case 'show-all':
-      listBooks();
-      filterLib = null;
-      return;
-    case 'show-read':
-      filterLib = myLibrary.filter((book) => book.read);
-      break;
-    case 'show-unread':
-      filterLib = myLibrary.filter((book) => !book.read);
-      break;
-  }
-  listFilteredBooks(filterLib);
-}
 
-function listFilteredBooks(arr) {
-  //first remove all child nodes, before adding them all
-  const bookList = document.getElementById('books-container');
-  while (bookList.firstChild) {
-    bookList.removeChild(bookList.firstChild)
-  }
-
-  arr.forEach((book, index) => {
-    addBookToPage(book.title, book.author, book.pages, book.read, index)
-  });
-}
-
-function resetFilterSort(){
-  document.getElementById('select-filter').options[0].selected = true;
-  filterBy('show-all');
-  document.getElementById('select-sort-by').options[0].selected = true;
-  sortBy('date-added-up');
-}
 
 
 addBookToLibrary('Cat\'s Cradle', 'Kurt Vonnegut', 304, true);
