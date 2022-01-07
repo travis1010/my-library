@@ -7,7 +7,6 @@ body {
   background-size: 25%;
   margin: 0px;
   padding: 0px;
-  
 }
 
 #container-for-footer {
@@ -45,7 +44,7 @@ h1 {
 
 #stats-container {
   font-size: 16px;
-  background-color: rgba(60, 116, 60, 0.7);
+  background-color: rgba(60, 116, 60, 0.85);
   border: 2px solid #220c10;
   border-radius: 5px;
   margin-right: 20px;
@@ -78,10 +77,9 @@ h1 {
   padding: 0px;
 }
 
-
 button {
   background-color: rgb(252, 244, 207);
-  border: 1px solid black;
+  border: 1px solid #220c10;
   border-radius: 3px;
   color: #220c10;
 }
@@ -94,7 +92,6 @@ button:active {
   filter: brightness(80%);
 }
 
-
 #add-book {
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 18px;
@@ -105,7 +102,6 @@ select, option {
   font-size: 15px;
   font-family: sans-serif;
 }
-
 
 #books-container{
   padding: 30px;
@@ -121,6 +117,7 @@ select, option {
   border-radius: 5px;
   border: 2px solid #220c10;
   padding: 0px;
+  color: black;
 }
 
 .book-card-prop {
@@ -200,14 +197,12 @@ a {
   height: 16px;
 }
 
-
-
 .read-book {
-  background-color: rgba(60, 116, 60, 0.8);
+  background-color: rgba(60, 116, 60, 0.85);
 }
 
 .unread-book {
-  background-color: rgba(165, 42, 42, 0.8);
+  background-color: rgba(165, 42, 42, 0.85);
 }
 
 .delete-btn {
@@ -219,8 +214,6 @@ a {
   line-height: 18px;
   text-align: center;
 }
-
-
 
 
 /* this is all the form css */
@@ -240,7 +233,7 @@ a {
 #form-container, #edit-form-container {
   border: 2px solid #220c10;
   border-radius: 5px;
-  background-color: rgba(60, 116, 60, 0.7);
+  background-color: rgba(60, 116, 60, 0.85);
   padding: 6px;
   color: #220c10;
 }
@@ -278,5 +271,14 @@ input[type=text], input[type=number] {
   margin: 0px;
   align-items: center;
   justify-content: space-evenly;
+}
+
+#title-error, #edit-title-error {
+  display: none;
+  color: rgb(187, 0, 0);
+  padding: 0px;
+  margin: 0px;
+  align-items: center;
+  justify-content: center;
 }
 /*form css end */

@@ -1,15 +1,13 @@
 let myLibrary = [];
 let bookCounter = 0;
 let editIndex = null;
-let filterLib = null;
 
-function Book(title, author, pages, read, numAdded, index) {
+function Book(title, author, pages, read, numAdded) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.read = read;
   this.numAdded = numAdded;
-  this.index = index;
   this.info = function() {
     return `${this.title} by ${this.author}, ${pages} pages, ${this.read ? 'already read' : 'not read yet'}`;
   };
@@ -28,12 +26,9 @@ function listBooks() {
   }
 
   myLibrary.forEach((book, index) => {
-    book.index = index;
     addBookToPage(book.title, book.author, book.pages, book.read, index)
   });
 }
-
-
 
 function openForm() {
   document.getElementById('pop-up-form').style.display = "flex";
@@ -66,7 +61,12 @@ function closeEditForm() {
 }
 
 
-function addBook(form) {
+function addBookFromForm(form) {
+  if(form.title.value == '') {
+    document.getElementById('title-error').style.display = 'flex';
+    return;
+  }
+  document.getElementById('title-error').style.display = 'none';
   let currentIndex = myLibrary.length;
   let title = form.title.value;
   let author = form.author.value;
@@ -77,7 +77,7 @@ function addBook(form) {
   } else if (read === 'false') {
     read = false;
   }
-  addBookToLibrary(title, author, pages, read, currentIndex);
+  addBookToLibrary(title, author, pages, read);
   closeForm();
   addBookToPage(title, author, pages, read, currentIndex);
   getBookStats();
@@ -113,7 +113,6 @@ function addBookToPage(bookTitle, bookAuthor, bookPages, bookRead, index) {
   //this is for the buttons at the bottom of each book card
   let titleBar = document.createElement('div');
   titleBar.classList.add('title-bar');
-  
   
   let checkBox = document.createElement('input');
   checkBox.setAttribute('type', 'checkbox');
@@ -157,13 +156,10 @@ function addBookToPage(bookTitle, bookAuthor, bookPages, bookRead, index) {
   readSwitch.appendChild(checkBox);
   readSwitch.classList.add('read-switch');
   
-
-  
   titleBar.appendChild(readSwitch)
   titleBar.appendChild(bottomRightButtons);
   bookCard.appendChild(titleBar);
 
-//-----------------------------------
 
   bookList.appendChild(bookCard);
 }
@@ -210,9 +206,12 @@ function deleteBook(index) {
   getBookStats();
 }
 
-
-  
 function editBook(form) {
+  if(form.title.value == '') {
+    document.getElementById('edit-title-error').style.display = 'flex';
+    return;
+  }
+  document.getElementById('edit-title-error').style.display = 'none';
   let read = form.read.value;
   if (read === 'true') {
     read = true;
