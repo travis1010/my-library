@@ -2,15 +2,14 @@ let myLibrary = [];
 let bookCounter = 0;
 let editIndex = null;
 
-function Book(title, author, pages, read, numAdded) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.numAdded = numAdded;
-  this.info = function() {
-    return `${this.title} by ${this.author}, ${pages} pages, ${this.read ? 'already read' : 'not read yet'}`;
-  };
+class Book {
+  constructor(title, author, pages, read, numAdded) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+    this.numAdded = numAdded;
+  }
 }
 
 function addBookToLibrary(title, author, pages, read, currentIndex) {
