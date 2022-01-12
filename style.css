@@ -44,7 +44,7 @@ h1 {
 
 #stats-container {
   font-size: 16px;
-  background-color: rgba(60, 116, 60, 0.85);
+  background-color: #C0886F;
   border: 2px solid #220c10;
   border-radius: 5px;
   margin-right: 20px;
@@ -79,9 +79,9 @@ h1 {
 
 button {
   background-color: rgb(252, 244, 207);
-  border: 1px solid #220c10;
+  border: 1px solid #4C4236;
   border-radius: 3px;
-  color: #220c10;
+  color: #4C4236;
 }
 
 button:hover {
@@ -115,9 +115,10 @@ select, option {
   min-height: 104px;
   width: 214px;
   border-radius: 5px;
-  border: 2px solid #220c10;
+  border: 2px solid #4C4236;
   padding: 0px;
   color: black;
+  background-color: #C0886F;
 }
 
 .book-card-prop {
@@ -198,11 +199,11 @@ a {
 }
 
 .read-book {
-  background-color: rgba(60, 116, 60, 0.85);
+  border-color: black;
 }
 
 .unread-book {
-  background-color: rgba(165, 42, 42, 0.85);
+  border-color: #a70d0d;
 }
 
 .delete-btn {
@@ -233,7 +234,7 @@ a {
 #form-container, #edit-form-container {
   border: 2px solid #220c10;
   border-radius: 5px;
-  background-color: rgba(60, 116, 60, 0.85);
+  background-color: #C0886F;
   padding: 6px;
   color: #220c10;
 }
