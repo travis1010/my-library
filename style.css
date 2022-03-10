@@ -118,7 +118,7 @@ select, option {
   border: 2px solid #4C4236;
   padding: 0px;
   color: black;
-  background-color: #C0886F;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .book-card-prop {
